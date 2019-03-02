@@ -1,20 +1,24 @@
 const PubSub = require('../helpers/pub_sub.js');
 const ResultView = require('./result_view.js');
 
-const ListView = function(container){
+const ListView = function(container,dropdownContainer){
   this.container = container;
+  this.dropdownContainer = dropdownContainer;
 };
 
 ListView.prototype.bindEvents = function(){
   PubSub.subscribe('Character:character-data-ready',(evt)=>{
-    console.dir(evt.detail);
     this.renderCharacterDetailViews(evt.detail);
-    this.populate(evt.detail);
+    this.populateDropdown(evt.detail);
+  });
+
+  this.dropdownContainer.addEventListener('change',(evt)=>{
+    const selectedIndex = evt.target.value;
+    PubSub.publish('ListView:status-change',selectedIndex);
   });
 };
 
 ListView.prototype.renderCharacterDetailViews = function(characters){
-  console.dir(characters);
   characters.forEach((character)=>{
     const characterItem = this.createCharacterListItem(character);
     this.container.appendChild(characterItem);
@@ -27,15 +31,14 @@ ListView.prototype.createCharacterListItem = function (character){
   return characterDetail;
 };
 
-ListView.prototype.populate = function (characters){
+ListView.prototype.populateDropdown = function (characters){
   console.dir(characters);
   const status = this.getUniqueStatus(characters);
-  const dropdownContainer = document.querySelector('#status-dropdown');
   status.forEach((status,index) =>{
     const option = document.createElement('option');
     option.textContent = status;
-    option.value = index;
-    dropdownContainer.appendChild(option);
+    option.value = status;
+    this.dropdownContainer.appendChild(option);
   });
 };
 

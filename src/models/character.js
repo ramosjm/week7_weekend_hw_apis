@@ -13,6 +13,10 @@ Character.prototype.getData = function () {
     return request.get();
   }))
     .then (data => this.handleData(data));
+  PubSub.subscribe('ListView:status-change',(evt)=>{
+    const selectedIndex = evt.detail;
+    this.publishStatusData(selectedIndex);
+  });
 };
 
 Character.prototype.getUrlList = function (urlSample){
@@ -28,9 +32,14 @@ Character.prototype.handleData = function(data){
   const resultsArray = []
   data.forEach((dataItem)=>resultsArray.push(dataItem.results));
   this.data = resultsArray.flat(2);
-  console.log(this.data);
   PubSub.publish('Character:character-data-ready',this.data)
 };
+
+Character.prototype.publishStatusData = function(selectedIndex){
+  const selectedStatus = this.data.filter((character) => character.status === selectedIndex);
+  
+  console.log(selectedStatus);
+  };
 
 
 module.exports = Character;
