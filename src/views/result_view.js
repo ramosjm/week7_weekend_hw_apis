@@ -12,22 +12,29 @@ ResultView.prototype.createCharacterDetail = function(character){
   li = document.createElement('li');
 
   nameParagraph = document.createElement('p');
-  nameParagraph.textContent = name
+  nameParagraph.textContent = name;
   li.appendChild(nameParagraph);
+  list.appendChild(nameParagraph);
+
+  characterSpecies = document.createElement('div');
 
   speciesLabel = document.createElement('label');
-  speciesLabel.textContent = 'species'
-  speciesParagraph = document.createElement('li');
-  speciesParagraph.textContent = species
-  list.appendChild(speciesLabel);
-  list.appendChild(speciesParagraph);
+  speciesLabel.textContent = 'Species';
+  speciesParagraph = document.createElement('span');
+  speciesParagraph.textContent = species;
+  characterSpecies.appendChild(speciesLabel);
+  characterSpecies.appendChild(speciesParagraph);
+  list.appendChild(characterSpecies);
+
+  characterStatus = document.createElement('div');
 
   statusLabel = document.createElement('label');
-  statusLabel.textContent = 'status'
-  statusParagraph = document.createElement('li');
-  statusParagraph.textContent = status
-  list.appendChild(statusLabel);
-  list.appendChild(statusParagraph);
+  statusLabel.textContent = 'Status';
+  statusParagraph = document.createElement('span');
+  statusParagraph.textContent = status;
+  characterStatus.appendChild(statusLabel);
+  characterStatus.appendChild(statusParagraph);
+  list.appendChild(characterStatus);
 
   return list
 
