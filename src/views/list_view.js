@@ -13,16 +13,18 @@ ListView.prototype.bindEvents = function(){
 };
 
 ListView.prototype.renderCharacterDetailViews = function(characters){
-  characters.forEach((character))
+  console.log(characters);
+  characters.forEach((character)=>{
+    const characterItem = this.createCharacterListItem(character);
+    this.container.appendChild(characterItem);
+  });
 };
 
-
-
-
-
-
-
-
+ListView.prototype.createCharacterListItem = function (character){
+  const resultView = new ResultView();
+  const characterDetail = resultView.createCharacterDetail(character);
+  return characterDetail;
+};
 
 
 module.exports = ListView;
