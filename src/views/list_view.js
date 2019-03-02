@@ -13,7 +13,7 @@ ListView.prototype.bindEvents = function(){
 };
 
 ListView.prototype.renderCharacterDetailViews = function(characters){
-  console.log(characters);
+  console.dir(characters);
   characters.forEach((character)=>{
     const characterItem = this.createCharacterListItem(character);
     this.container.appendChild(characterItem);
