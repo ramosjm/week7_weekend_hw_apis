@@ -1,9 +1,10 @@
 const PubSub = require('../helpers/pub_sub.js');
 const ResultView = require('./result_view.js');
 
-const ListView = function(container,dropdownContainer){
+const ListView = function(container,statusContainer,speciesContainer){
   this.container = container;
-  this.dropdownContainer = dropdownContainer;
+  this.statusContainer = statusContainer;
+  this.speciesContainer = speciesContainer;
 };
 
 ListView.prototype.bindEvents = function(){
@@ -12,13 +13,27 @@ ListView.prototype.bindEvents = function(){
     this.populateDropdown(evt.detail);
   });
 
-  this.dropdownContainer.addEventListener('change',(evt)=>{
+  PubSub.subscribe('Character:character-species-ready',(evt)=>{
+    this.renderCharacterDetailViews(evt.detail);
+  });
+
+  this.statusContainer.addEventListener('change',(evt)=>{
     const selectedIndex = evt.target.value;
     PubSub.publish('ListView:status-change',selectedIndex);
+  });
+
+  this.speciesContainer.addEventListener('chane',(evt)=>{
+    const selectedIndex = evt.target.value;
+    PubSub.publish('ListView:species-change',selectedIndex);
+  });
+
+  PubSub.subscribe('Character:character-status-ready',(evt)=>{
+    this.renderCharacterDetailViews(evt.detail);
   });
 };
 
 ListView.prototype.renderCharacterDetailViews = function(characters){
+  this.container.innerHTML = '';
   characters.forEach((character)=>{
     const characterItem = this.createCharacterListItem(character);
     this.container.appendChild(characterItem);
@@ -32,19 +47,19 @@ ListView.prototype.createCharacterListItem = function (character){
 };
 
 ListView.prototype.populateDropdown = function (characters){
-  console.dir(characters);
+  console.log(characters);
   const status = this.getUniqueStatus(characters);
   status.forEach((status,index) =>{
     const option = document.createElement('option');
     option.textContent = status;
     option.value = status;
-    this.dropdownContainer.appendChild(option);
+    this.statusContainer.appendChild(option);
   });
 };
 
 ListView.prototype.getUniqueStatus = function (characters) {
-  let myArray = characters.map(character => character.status)
-  return myArray.reduce(function (accumulator, currentStatus) {
+  let characterStatuses = characters.map(character => character.status)
+  return characterStatuses.reduce(function (accumulator, currentStatus) {
     if (accumulator.indexOf(currentStatus) === -1) {
       accumulator.push(currentStatus);
     }

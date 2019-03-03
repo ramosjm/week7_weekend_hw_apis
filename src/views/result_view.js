@@ -4,9 +4,10 @@ const ResultView = function(){
 };
 
 ResultView.prototype.createCharacterDetail = function(character){
-  name = character.name
-  species = character.species
-  status = character.status
+  name = character.name;
+  img = character.image;
+  species = character.species;
+  status = character.status;
 
   list = document.createElement('ul');
   li = document.createElement('li');
@@ -15,6 +16,12 @@ ResultView.prototype.createCharacterDetail = function(character){
   nameParagraph.textContent = name;
   li.appendChild(nameParagraph);
   list.appendChild(nameParagraph);
+
+  imgContainer = document.createElement('div');
+  imgItem = document.createElement('img');
+  imgItem.src = img;
+  imgContainer.appendChild(imgItem);
+  nameParagraph.appendChild(imgContainer);
 
   characterSpecies = document.createElement('div');
 
@@ -34,6 +41,7 @@ ResultView.prototype.createCharacterDetail = function(character){
   statusParagraph.textContent = status;
   characterStatus.appendChild(statusLabel);
   characterStatus.appendChild(statusParagraph);
+
   list.appendChild(characterStatus);
 
   return list

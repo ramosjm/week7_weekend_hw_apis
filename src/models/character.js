@@ -37,9 +37,8 @@ Character.prototype.handleData = function(data){
 
 Character.prototype.publishStatusData = function(selectedIndex){
   const selectedStatus = this.data.filter((character) => character.status === selectedIndex);
-  
-  console.log(selectedStatus);
-  };
+  PubSub.publish('Character:character-status-ready',selectedStatus);
+};
 
 
 module.exports = Character;
