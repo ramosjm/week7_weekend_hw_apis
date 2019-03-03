@@ -17,6 +17,10 @@ Character.prototype.getData = function () {
     const selectedIndex = evt.detail;
     this.publishStatusData(selectedIndex);
   });
+  PubSub.subscribe('ListView:species-change',(evt)=>{
+    const selectedIndex = evt.detail;
+    this.publishSpeciesData(selectedIndex);
+  });
 };
 
 Character.prototype.getUrlList = function (urlSample){
@@ -38,6 +42,11 @@ Character.prototype.handleData = function(data){
 Character.prototype.publishStatusData = function(selectedIndex){
   const selectedStatus = this.data.filter((character) => character.status === selectedIndex);
   PubSub.publish('Character:character-status-ready',selectedStatus);
+};
+
+Character.prototype.publishSpeciesData = function(selectedIndex){
+  const selectedSpecies = this.data.filter((character)=> character.species ===selectedIndex);
+  PubSub.publish('Character:character-species-ready',selectedSpecies);
 };
 
 
