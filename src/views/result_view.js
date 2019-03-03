@@ -10,6 +10,7 @@ ResultView.prototype.createCharacterDetail = function(character){
   status = character.status;
 
   list = document.createElement('ul');
+  list.classList = 'character-container';
   li = document.createElement('li');
 
   nameParagraph = document.createElement('p');
