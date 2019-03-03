@@ -13,13 +13,13 @@ ResultView.prototype.createCharacterDetail = function(character){
   list.classList = 'character-container';
   li = document.createElement('li');
 
-  nameParagraph = document.createElement('p');
+  const nameParagraph = document.createElement('p');
   nameParagraph.textContent = name;
   li.appendChild(nameParagraph);
   list.appendChild(nameParagraph);
 
-  imgContainer = document.createElement('div');
-  imgItem = document.createElement('img');
+  const imgContainer = document.createElement('div');
+  const imgItem = document.createElement('img');
   imgItem.src = img;
   imgContainer.appendChild(imgItem);
   nameParagraph.appendChild(imgContainer);
