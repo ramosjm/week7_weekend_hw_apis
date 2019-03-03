@@ -33,8 +33,7 @@ Character.prototype.getUrlList = function (urlSample){
 };
 
 Character.prototype.handleData = function(data){
-  const resultsArray = []
-  data.forEach((dataItem)=>resultsArray.push(dataItem.results));
+  const resultsArray = data.map((dataItem)=>dataItem.results);
   this.data = resultsArray.flat(2);
   PubSub.publish('Character:character-data-ready',this.data)
 };
