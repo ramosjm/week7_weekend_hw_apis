@@ -9,6 +9,7 @@ h1, label{
 
 h1{
   text-align: center;
+  font-size: 30pt;
   color: rgb(14, 173, 208);
   text-shadow: 2px 2px 2px rgb(94, 165, 77);
 }
@@ -19,7 +20,7 @@ p{
 
 body{
   background-color: black;
-  color: rgb(14, 173, 208);
+  color: rgb(10, 156, 171);
   font-weight: bold;
 }
 ul{

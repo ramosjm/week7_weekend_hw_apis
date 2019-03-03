@@ -24,29 +24,24 @@ ResultView.prototype.createCharacterDetail = function(character){
   imgContainer.appendChild(imgItem);
   nameParagraph.appendChild(imgContainer);
 
-  characterSpecies = document.createElement('div');
-
-  speciesLabel = document.createElement('label');
-  speciesLabel.textContent = 'Species';
-  speciesParagraph = document.createElement('span');
-  speciesParagraph.textContent = species;
-  characterSpecies.appendChild(speciesLabel);
-  characterSpecies.appendChild(speciesParagraph);
+  const characterSpecies = this.createElements('div','label','Species','span',species);
   list.appendChild(characterSpecies);
 
-  characterStatus = document.createElement('div');
-
-  statusLabel = document.createElement('label');
-  statusLabel.textContent = 'Status';
-  statusParagraph = document.createElement('span');
-  statusParagraph.textContent = status;
-  characterStatus.appendChild(statusLabel);
-  characterStatus.appendChild(statusParagraph);
-
+  const characterStatus = this.createElements('div','label','Status','span',status);
   list.appendChild(characterStatus);
-
   return list
 
+};
+
+ResultView.prototype.createElements = function(container,label,labelText,span,spanText,textContent){
+  const elementContainer = document.createElement(container);
+  const labelElement = document.createElement(label);
+  labelElement.textContent = labelText;
+  const spanElement = document.createElement(span);
+  spanElement.textContent = spanText;
+  elementContainer.appendChild(labelElement);
+  elementContainer.appendChild(spanElement);
+  return elementContainer;
 };
 
 
